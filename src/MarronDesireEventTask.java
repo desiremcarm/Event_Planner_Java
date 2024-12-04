@@ -1,9 +1,9 @@
-public class EventTask {
+public class MarronDesireEventTask {
 
     private String text;
     private boolean isCompleted = false;
 
-    public EventTask(String text) {
+    public MarronDesireEventTask(String text) {
         this.text = text;
     }
 

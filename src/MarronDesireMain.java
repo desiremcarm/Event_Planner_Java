@@ -1,11 +1,10 @@
 
-import java.lang.reflect.Array;
 import java.time.DateTimeException;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Scanner;
 
-public class Main {
+public class MarronDesireMain {
 
     // CONST COLORS
     final String ANSI_RED = "\u001B[31m";
@@ -21,12 +20,12 @@ public class Main {
 
 
     // ARRAY OF EVENTS CREATED
-    ArrayList<Event> events = new ArrayList<Event>();
+    ArrayList<MarronDesireEvent> marronDesireEvents = new ArrayList<MarronDesireEvent>();
     // Scanner global instance
     Scanner sc = new Scanner(System.in);
 
     public static void main(String[] args) {
-        Main program = new Main();
+        MarronDesireMain program = new MarronDesireMain();
         program.init();
     }
 
@@ -86,7 +85,7 @@ public class Main {
         System.out.println("Type an event name: ");
         String evName = sc.next();
 
-        ArrayList<EventTask> tasks = listTaskForEvent(evName);
+        ArrayList<MarronDesireEventTask> tasks = listTaskForEvent(evName);
 
         if (tasks.isEmpty()){
             System.out.println("That event doesn't have tasks or the event doesn't exist.");
@@ -110,7 +109,7 @@ public class Main {
         }
     }
 
-    public boolean doesTaskExist(String taskName, ArrayList<EventTask> tasks){
+    public boolean doesTaskExist(String taskName, ArrayList<MarronDesireEventTask> tasks){
         for (int i = 0; i < tasks.size(); i++) {
             if(tasks.get(i).getText().equals(taskName)){
                 return true;
@@ -119,19 +118,19 @@ public class Main {
         return false;
     }
 
-    public ArrayList<EventTask> listTaskForEvent(String eventName){
-        ArrayList<EventTask> tasks = new ArrayList<EventTask>();
+    public ArrayList<MarronDesireEventTask> listTaskForEvent(String eventName){
+        ArrayList<MarronDesireEventTask> tasks = new ArrayList<MarronDesireEventTask>();
 
-        for (int i = 0; i < events.size(); i++) {
-            if(eventName.equals(events.get(i).getTitle())){
-                System.out.println(events.get(i).getTasks());
-                tasks = events.get(i).getTasks();
+        for (int i = 0; i < marronDesireEvents.size(); i++) {
+            if(eventName.equals(marronDesireEvents.get(i).getTitle())){
+                System.out.println(marronDesireEvents.get(i).getTasks());
+                tasks = marronDesireEvents.get(i).getTasks();
             }
         }
         return tasks;
     }
 
-    public void updateTask(String evName, String taskName, boolean b, ArrayList<EventTask> tasks){
+    public void updateTask(String evName, String taskName, boolean b, ArrayList<MarronDesireEventTask> tasks){
         for (int i = 0; i < tasks.size(); i++) {
             if(tasks.get(i).getText().equals(taskName)){
                 tasks.get(i).manageTask(b);
@@ -144,8 +143,8 @@ public class Main {
         if(isEventListEmpty()){
             System.out.println("There are no events.");
         } else {
-            for (int i = 0; i < events.size(); i++) {
-                System.out.println(events.get(i).toString());
+            for (int i = 0; i < marronDesireEvents.size(); i++) {
+                System.out.println(marronDesireEvents.get(i).toString());
             }
         }
     }
@@ -161,16 +160,16 @@ public class Main {
 
     // AUX
     public boolean isEventListEmpty(){
-        if (events.isEmpty()){
+        if (marronDesireEvents.isEmpty()){
             return true;
         }
         return false;
     }
 
     public void deteleFromEvents(String evName){
-        for (int i = 0; i < events.size(); i++) {
-            if (events.get(i).getTitle().equals(evName)){
-                events.remove(i);
+        for (int i = 0; i < marronDesireEvents.size(); i++) {
+            if (marronDesireEvents.get(i).getTitle().equals(evName)){
+                marronDesireEvents.remove(i);
                 System.out.println("Event successfully removed");
             }
         }
@@ -193,12 +192,12 @@ public class Main {
         String newName = sc.next();
 
         LocalDate date = askForEventDate();
-        Event.Priority prio = setEventPriority();
-        Event newEvent = new Event(newName, date, prio);
+        MarronDesireEvent.Priority prio = setEventPriority();
+        MarronDesireEvent newMarronDesireEvent = new MarronDesireEvent(newName, date, prio);
 
-        addTasksToEvent(newEvent);
+        addTasksToEvent(newMarronDesireEvent);
 
-        events.add(newEvent);
+        marronDesireEvents.add(newMarronDesireEvent);
     }
 
     public LocalDate askForEventDate(){
@@ -241,10 +240,10 @@ public class Main {
         }
     }
 
-    public Event.Priority setEventPriority(){
+    public MarronDesireEvent.Priority setEventPriority(){
         int prioSelected;
-        Event.Priority prios[] = Event.Priority.values(); // all Priorities
-        Event.Priority prio = null;
+        MarronDesireEvent.Priority prios[] = MarronDesireEvent.Priority.values(); // all Priorities
+        MarronDesireEvent.Priority prio = null;
 
         System.out.println("Set the priority for the event \n" +
                 "Type 0 for LOW, 1 for MEDIUM, 2 for HIGH");
@@ -259,7 +258,7 @@ public class Main {
         return prio;
     }
 
-    public void addTasksToEvent(Event ev){
+    public void addTasksToEvent(MarronDesireEvent ev){
         String taskName;
         int yn = 1;
 
@@ -272,7 +271,7 @@ public class Main {
                 System.out.println("Type the task name:");
                 taskName = sc.next();
 
-                EventTask evTask = new EventTask(taskName);
+                MarronDesireEventTask evTask = new MarronDesireEventTask(taskName);
 
                 ev.addTask(evTask);
                 System.out.println(ev.getTasks());

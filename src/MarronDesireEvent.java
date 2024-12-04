@@ -1,8 +1,7 @@
-import java.time.DateTimeException;
 import java.time.LocalDate;
 import java.util.ArrayList;
 
-public class Event {
+public class MarronDesireEvent {
 
     private String title;
     private LocalDate date;
@@ -10,15 +9,15 @@ public class Event {
         LOW, MEDIUM, HIGH
     }
     Priority priority;
-    private ArrayList<EventTask> tasks = new ArrayList<EventTask>();
+    private ArrayList<MarronDesireEventTask> tasks = new ArrayList<MarronDesireEventTask>();
 
-    public Event(String name, LocalDate eventDate, Priority prior){
+    public MarronDesireEvent(String name, LocalDate eventDate, Priority prior){
         this.title = name;
         this.date = eventDate;
         this.priority = prior;
     }
 
-    public void addTask(EventTask task){
+    public void addTask(MarronDesireEventTask task){
         this.tasks.add(task);
     }
 
@@ -38,11 +37,11 @@ public class Event {
         this.date = date;
     }
 
-    public ArrayList<EventTask> getTasks() {
+    public ArrayList<MarronDesireEventTask> getTasks() {
         return tasks;
     }
 
-    public void setTasks(ArrayList<EventTask> tasks) {
+    public void setTasks(ArrayList<MarronDesireEventTask> tasks) {
         this.tasks = tasks;
     }
 
