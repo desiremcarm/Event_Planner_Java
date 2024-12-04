@@ -58,7 +58,6 @@ public class Main {
 
         switch (option){
             case 1:
-                System.out.println("It was 1");
                 addNewEvent();
                 break;
             case 2:
@@ -90,7 +89,7 @@ public class Main {
 
         Event newEvent = new Event(newName, date, prio);
 
-        System.out.println(newEvent.priority);
+        addTasksToEvent(newEvent);
 
         events.add(newEvent);
 
@@ -156,5 +155,30 @@ public class Main {
         System.out.println(prio);
 
         return prio;
+    }
+
+    public void addTasksToEvent(Event ev){
+        boolean addingTasks = true;
+        String taskName;
+        int yn = 1;
+
+        do {
+            System.out.println("Would you like to add tasks?\n" +
+                    "Type 0 for NO and 1 for YES");
+            yn = sc.nextInt();
+
+            if(yn == 1){
+                System.out.println("Type the task name:");
+                taskName = sc.next();
+
+                EventTask evTask = new EventTask(taskName);
+
+                ev.addTask(evTask);
+                System.out.println(ev.getTasks());
+            }
+
+        }while(yn!=0);
+
+
     }
 }

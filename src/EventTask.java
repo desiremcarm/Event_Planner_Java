@@ -3,6 +3,10 @@ public class EventTask {
     private String text;
     private boolean isCompleted = false;
 
+    public EventTask(String text) {
+        this.text = text;
+    }
+
     public String getText() {
         return text;
     }
