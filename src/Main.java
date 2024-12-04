@@ -1,4 +1,5 @@
 
+import java.lang.reflect.Array;
 import java.time.DateTimeException;
 import java.time.LocalDate;
 import java.util.ArrayList;
@@ -67,7 +68,22 @@ public class Main {
                 showListOfEvents();
                 break;
             case 4:
-                System.out.println("It was 4");
+                System.out.println("Type an event name: ");
+                String evName = sc.next();
+
+                ArrayList<EventTask> tasks = listTaskForEvent(evName);
+
+                System.out.println("What task do you want to manage?");
+                String taskName = sc.next();
+
+                System.out.println("What status would you like to add? \n" +
+                        "Type 'true' for done, 'false' to not done");
+                Boolean status = sc.nextBoolean();
+
+                updateTask(evName, taskName, status, tasks);
+
+                listTaskForEvent(evName);
+
                 break;
             case 5:
                 System.out.println("It was 5");
@@ -80,7 +96,25 @@ public class Main {
     }
 
     // HELPER - MARK TASK DONE/NOT DONE
-    // TODO
+    public ArrayList<EventTask> listTaskForEvent(String eventName){
+        ArrayList<EventTask> tasks = new ArrayList<EventTask>();
+
+        for (int i = 0; i < events.size(); i++) {
+            if(eventName.equals(events.get(i).getTitle())){
+                System.out.println(events.get(i).getTasks());
+                tasks = events.get(i).getTasks();
+            }
+        }
+        return tasks;
+    }
+
+    public void updateTask(String evName, String taskName, boolean b, ArrayList<EventTask> tasks){
+        for (int i = 0; i < tasks.size(); i++) {
+            if(tasks.get(i).getText().equals(taskName)){
+                tasks.get(i).manageTask(b);
+            }
+        }
+    }
 
     // HELPER - SHOWING ALL EVENTS
     public void showListOfEvents(){
