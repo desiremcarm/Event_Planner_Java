@@ -61,6 +61,7 @@ public class Main {
                 addNewEvent();
                 break;
             case 2:
+                deleteNewEvent();
                 System.out.println("It was 2");
                 break;
             case 3:
@@ -79,6 +80,38 @@ public class Main {
 
     }
 
+    // HELPER - DELETING EVENT
+    public void deleteNewEvent(){
+        System.out.println("Type the title of the event you want to delete");
+        String eventName = sc.next();
+
+        deteleFromEvents(eventName);
+        getListOfEvents();
+    }
+
+    // AUX
+    public void deteleFromEvents(String evName){
+        for (int i = 0; i < events.size(); i++) {
+            if (events.get(i).getTitle().equals(evName)){
+                events.remove(i);
+                System.out.println("Event successfully removed");
+            }
+        }
+    }
+
+    public void getListOfEvents(){
+        System.out.println("Current events registered in the system:");
+
+        if (events.size() == 0){
+            System.out.println("There aren't any events");
+        } else {
+            for (int i = 0; i < events.size(); i++) {
+                System.out.println(events.get(i));
+            }
+        }
+    }
+
+    // HELPERS - CREATING EVENT
     public void addNewEvent(){
 
         System.out.println(ANSI_WHITE + "Type your event name");
@@ -86,13 +119,11 @@ public class Main {
 
         LocalDate date = askForEventDate();
         Event.Priority prio = setEventPriority();
-
         Event newEvent = new Event(newName, date, prio);
 
         addTasksToEvent(newEvent);
 
         events.add(newEvent);
-
     }
 
     public LocalDate askForEventDate(){
@@ -158,7 +189,6 @@ public class Main {
     }
 
     public void addTasksToEvent(Event ev){
-        boolean addingTasks = true;
         String taskName;
         int yn = 1;
 
@@ -178,7 +208,5 @@ public class Main {
             }
 
         }while(yn!=0);
-
-
     }
 }
