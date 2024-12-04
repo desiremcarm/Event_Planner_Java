@@ -62,10 +62,9 @@ public class Main {
                 break;
             case 2:
                 deleteNewEvent();
-                System.out.println("It was 2");
                 break;
             case 3:
-                System.out.println("It was 3");
+                showListOfEvents();
                 break;
             case 4:
                 System.out.println("It was 4");
@@ -78,6 +77,16 @@ public class Main {
                 break;
         }
 
+    }
+
+    // HELPER - MARK TASK DONE/NOT DONE
+    // TODO
+
+    // HELPER - SHOWING ALL EVENTS
+    public void showListOfEvents(){
+        for (int i = 0; i < events.size(); i++) {
+            System.out.println(events.get(i).toString());
+        }
     }
 
     // HELPER - DELETING EVENT
@@ -105,9 +114,7 @@ public class Main {
         if (events.size() == 0){
             System.out.println("There aren't any events");
         } else {
-            for (int i = 0; i < events.size(); i++) {
-                System.out.println(events.get(i));
-            }
+            showListOfEvents();
         }
     }
 
