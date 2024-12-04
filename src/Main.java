@@ -81,7 +81,6 @@ public class Main {
                 Boolean status = sc.nextBoolean();
 
                 updateTask(evName, taskName, status, tasks);
-
                 listTaskForEvent(evName);
 
                 break;
