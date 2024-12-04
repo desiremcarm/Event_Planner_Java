@@ -6,9 +6,16 @@ public class Event {
     private String title;
     private LocalDate date;
     public enum Priority {
-        HIGH, MEDIUM, LOW
+        LOW, MEDIUM, HIGH
     }
+    Priority priority;
     private ArrayList<EventTask> tasks = new ArrayList<EventTask>();
+
+    public Event(String name, LocalDate eventDate, Priority prior){
+        this.title = name;
+        this.date = eventDate;
+        this.priority = prior;
+    }
 
     public void addTask(EventTask task){
         this.tasks.add(task);
