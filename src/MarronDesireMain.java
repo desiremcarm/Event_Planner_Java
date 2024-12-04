@@ -33,6 +33,11 @@ public class MarronDesireMain {
         showMenu();
     }
 
+    /**
+     * Shows the app menu
+     * @return void
+     *
+     */
     public void showMenu(){
 
         int option;
@@ -54,6 +59,11 @@ public class MarronDesireMain {
         }while(option!=5);
     }
 
+    /**
+     * Handles the menu option chosen by the user
+     * @return void
+     * @param option the option chosen by the user
+     */
     public void handleOption(int option){
 
         switch (option){
@@ -79,6 +89,11 @@ public class MarronDesireMain {
     }
 
     // HELPERS - MARK TASK DONE/NOT DONE
+    /**
+     * Manages the update of an existing task inside an existing event
+     * @return void
+     *
+     */
     public void updateTaskManager(){
         boolean taskExists;
 
@@ -109,6 +124,12 @@ public class MarronDesireMain {
         }
     }
 
+    /**
+     * Checks if a task actually exists inside a list of event tasks from an specific event
+     * @return boolean
+     * @param taskName the task name
+     * @param tasks the list of an specific event's tasks
+     */
     public boolean doesTaskExist(String taskName, ArrayList<MarronDesireEventTask> tasks){
         for (int i = 0; i < tasks.size(); i++) {
             if(tasks.get(i).getText().equals(taskName)){
@@ -118,6 +139,11 @@ public class MarronDesireMain {
         return false;
     }
 
+    /**
+     * Gets all the tasks of an specific event
+     * @return ArrayList<MarronDesireEventTask>
+     * @param eventName the name of the event
+     */
     public ArrayList<MarronDesireEventTask> listTaskForEvent(String eventName){
         ArrayList<MarronDesireEventTask> tasks = new ArrayList<MarronDesireEventTask>();
 
@@ -130,6 +156,14 @@ public class MarronDesireMain {
         return tasks;
     }
 
+    /**
+     * Finds a specific task of an event and changes its status to TRUE or FALSE
+     * @return void
+     * @param taskName the name of the task
+     * @param evName the name of the event
+     * @param tasks the list of the event tasks
+     * @param b the status -> true or false
+     */
     public void updateTask(String evName, String taskName, boolean b, ArrayList<MarronDesireEventTask> tasks){
         for (int i = 0; i < tasks.size(); i++) {
             if(tasks.get(i).getText().equals(taskName)){
@@ -139,6 +173,10 @@ public class MarronDesireMain {
     }
 
     // HELPER - SHOWING ALL EVENTS
+    /**
+     * Shows a list of all existing events
+     * @return void
+     */
     public void showListOfEvents(){
         if(isEventListEmpty()){
             System.out.println("There are no events.");
@@ -150,15 +188,23 @@ public class MarronDesireMain {
     }
 
     // HELPER - DELETING EVENT
+    /**
+     * Asks for the event title to be deleted, manages the deletion of it
+     * @return void
+     */
     public void deleteNewEvent(){
         System.out.println("Type the title of the event you want to delete");
         String eventName = sc.next();
 
-        deteleFromEvents(eventName);
+        deleteFromEvents(eventName);
         getListOfEvents();
     }
 
     // AUX
+    /**
+     * Checks if there are existing events or not
+     * @return boolean
+     */
     public boolean isEventListEmpty(){
         if (marronDesireEvents.isEmpty()){
             return true;
@@ -166,7 +212,12 @@ public class MarronDesireMain {
         return false;
     }
 
-    public void deteleFromEvents(String evName){
+    /**
+     * Deletes an existing event
+     * @return void
+     * @param evName the name of the event to delete
+     */
+    public void deleteFromEvents(String evName){
         for (int i = 0; i < marronDesireEvents.size(); i++) {
             if (marronDesireEvents.get(i).getTitle().equals(evName)){
                 marronDesireEvents.remove(i);
@@ -175,6 +226,10 @@ public class MarronDesireMain {
         }
     }
 
+    /**
+     * Gets the list of all existing events in the program
+     * @return void
+     */
     public void getListOfEvents(){
         System.out.println("Current events registered in the system:");
 
@@ -186,6 +241,10 @@ public class MarronDesireMain {
     }
 
     // HELPERS - CREATING EVENT
+    /**
+     * Adds a new event to the arraylist Events
+     * @return void
+     */
     public void addNewEvent(){
 
         System.out.println(ANSI_WHITE + "Type your event name");
@@ -200,6 +259,10 @@ public class MarronDesireMain {
         marronDesireEvents.add(newMarronDesireEvent);
     }
 
+    /**
+     * Asks for a date to the user
+     * @return localdate
+     */
     public LocalDate askForEventDate(){
 
         boolean isDateValid;
@@ -227,6 +290,11 @@ public class MarronDesireMain {
         return eventDate;
     }
 
+    /**
+     * Checks if a date is valid or not
+     * @return boolean
+     * @params int day, month and year
+     */
     public boolean checkIfDateIsValid(int day, int month, int year){
         try {
             // Intentamos crear un LocalDate con los valores dados
@@ -240,6 +308,10 @@ public class MarronDesireMain {
         }
     }
 
+    /**
+     * Sets the priority of an event
+     * @return a priority
+     */
     public MarronDesireEvent.Priority setEventPriority(){
         int prioSelected;
         MarronDesireEvent.Priority prios[] = MarronDesireEvent.Priority.values(); // all Priorities
@@ -258,6 +330,10 @@ public class MarronDesireMain {
         return prio;
     }
 
+    /**
+     * Add tasks to an event
+     * @return void
+     */
     public void addTasksToEvent(MarronDesireEvent ev){
         String taskName;
         int yn = 1;
