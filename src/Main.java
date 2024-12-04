@@ -13,11 +13,11 @@ public class Main {
     final String ANSI_WHITE = "\u001B[37m";
 
     // MENU MSG
-    final String MENU_MSG = ANSI_BLUE + "1️⃣ To add a new event \n" +
+    final String MENU_MSG = ANSI_BLUE + "\n1️⃣ To add a new event \n" +
             "2️⃣ To delete an event \n" +
             "3️⃣ To list all existing events  \n" +
             "4️⃣ To change a task status (completed/uncompleted) \n" +
-            "and 5️⃣ To exit (even thought we're sad to see you go!🥹)";
+            "and 5️⃣ To exit (even thought we're sad to see you go!🥹) \n";
 
 
     // ARRAY OF EVENTS CREATED
@@ -68,33 +68,57 @@ public class Main {
                 showListOfEvents();
                 break;
             case 4:
-                System.out.println("Type an event name: ");
-                String evName = sc.next();
+                updateTaskManager();
+                break;
+            case 5:
+                System.out.println(ANSI_WHITE + "\n" + "Thank you for checking this prototype!");
+                break;
+            default:
+                System.out.println("Please choose a valid option!");
+                break;
+        }
+    }
 
-                ArrayList<EventTask> tasks = listTaskForEvent(evName);
+    // HELPERS - MARK TASK DONE/NOT DONE
+    public void updateTaskManager(){
+        boolean taskExists;
 
-                System.out.println("What task do you want to manage?");
-                String taskName = sc.next();
+        System.out.println("Type an event name: ");
+        String evName = sc.next();
 
+        ArrayList<EventTask> tasks = listTaskForEvent(evName);
+
+        if (tasks.isEmpty()){
+            System.out.println("That event doesn't have tasks or the event doesn't exist.");
+            return;
+        } else {
+            System.out.println("What task do you want to manage?");
+            String taskName = sc.next();
+
+            taskExists = doesTaskExist(taskName, tasks);
+
+            if(taskExists){
                 System.out.println("What status would you like to add? \n" +
                         "Type 'true' for done, 'false' to not done");
                 Boolean status = sc.nextBoolean();
 
                 updateTask(evName, taskName, status, tasks);
                 listTaskForEvent(evName);
-
-                break;
-            case 5:
-                System.out.println("It was 5");
-                break;
-            default:
-                System.out.println("It was other");
-                break;
+            } else {
+                System.out.println("Task doesn't exist.");
+            }
         }
-
     }
 
-    // HELPER - MARK TASK DONE/NOT DONE
+    public boolean doesTaskExist(String taskName, ArrayList<EventTask> tasks){
+        for (int i = 0; i < tasks.size(); i++) {
+            if(tasks.get(i).getText().equals(taskName)){
+                return true;
+            }
+        }
+        return false;
+    }
+
     public ArrayList<EventTask> listTaskForEvent(String eventName){
         ArrayList<EventTask> tasks = new ArrayList<EventTask>();
 
@@ -117,8 +141,12 @@ public class Main {
 
     // HELPER - SHOWING ALL EVENTS
     public void showListOfEvents(){
-        for (int i = 0; i < events.size(); i++) {
-            System.out.println(events.get(i).toString());
+        if(isEventListEmpty()){
+            System.out.println("There are no events.");
+        } else {
+            for (int i = 0; i < events.size(); i++) {
+                System.out.println(events.get(i).toString());
+            }
         }
     }
 
@@ -132,6 +160,13 @@ public class Main {
     }
 
     // AUX
+    public boolean isEventListEmpty(){
+        if (events.isEmpty()){
+            return true;
+        }
+        return false;
+    }
+
     public void deteleFromEvents(String evName){
         for (int i = 0; i < events.size(); i++) {
             if (events.get(i).getTitle().equals(evName)){
@@ -144,7 +179,7 @@ public class Main {
     public void getListOfEvents(){
         System.out.println("Current events registered in the system:");
 
-        if (events.size() == 0){
+        if (isEventListEmpty()){
             System.out.println("There aren't any events");
         } else {
             showListOfEvents();
@@ -207,7 +242,6 @@ public class Main {
     }
 
     public Event.Priority setEventPriority(){
-
         int prioSelected;
         Event.Priority prios[] = Event.Priority.values(); // all Priorities
         Event.Priority prio = null;
@@ -222,9 +256,6 @@ public class Main {
                 prio = prios[i];
             }
         }
-
-        System.out.println(prio);
-
         return prio;
     }
 
